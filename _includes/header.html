@@ -26,19 +26,28 @@ function myFunction() {
 <header role="banner" style="background-color: aquamarine;">
   <div class="container">
 
-   <a class="navbar-brand" href="/" id="home">
-      <img src="/assets/img/homestead_logo.png" alt="logo" />
-   </a>
+  <a class="navbar-brand" href="/" id="home">
+    <img src="/assets/img/homestead_logo.png" alt="logo" />
+  </a>
    
-   <div class="topnav" id="myTopnav">	  
-     <a href="/">Home</a>
-     <a href="/menu">Menu</a>
-     <a href="/about">About</a>
-     <a href="/contact-us">Contact us</a> 
-     <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars" style="color: white;"></i></a>	     
-   </div>
+  <ul id="menu">
+    {%- if site.menu -%}
+      {%- assign current_path_no_slash = page.url | remove: '/' -%}
+      {%- for item in site.menu -%}
+      {%- assign item_path_no_slash = item.path | remove: '/' -%}
+      {%- assign item_path = item.path -%}
+      {%- assign item_path_first = item_path | slice: 0 %}
+      {%- if item_path_first == '/' -%}
+        {%- assign item_path = item_path | slice: 1, item_path.size -%}
+      {%- endif -%}
+      <li class="nav-link {% if current_path_no_slash == item_path_no_slash %}active{% endif %}">
+        <a href="{{ page.baseurl }}{{ item_path }}">{{ item }}</a>
+      </li>
+      {%- endfor -%}
+    {%- endif -%}
+  </ul>
 	 
-   <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fhomesteadcafe.github.io%2F&width=61&layout=button_count&action=like&size=small&show_faces=true&share=false&height=21&appId" width="61" height="21" style="border:none;overflow:hidden;float:right;" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+  <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fhomesteadcafe.github.io%2F&width=61&layout=button_count&action=like&size=small&show_faces=true&share=false&height=21&appId" width="61" height="21" style="border:none;overflow:hidden;float:right;" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
   </div>
   <hr class="sep">
