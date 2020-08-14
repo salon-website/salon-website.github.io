@@ -1,2 +1,7 @@
 name: Salon Website
 markdown: kramdown
+
+menu:
+  # Use these to customise the main navigation.
+  - path: /about
+    text: About
